@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.38/vue.global.min.js"
+      integrity="sha512-HdUtlwGlOvElJxGY2Ef7wEIxHS0OUmEMc3u+jLQuKWYwPRmGc0SGSOKJzC7uOIKNtgTRkjXQ03CGwtooY65Seg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>播放列表</h1>
+      <input
+        type="text"
+        placeholder="请输入要查找的歌曲名"
+        class="search"
+        v-model="searchTerm"
+      />
+      <ul>
+        <li v-for="song in filteredPlaylist">{{ song }}</li>
+      </ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
