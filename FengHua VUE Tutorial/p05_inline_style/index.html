@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.38/vue.global.min.js"
+      integrity="sha512-HdUtlwGlOvElJxGY2Ef7wEIxHS0OUmEMc3u+jLQuKWYwPRmGc0SGSOKJzC7uOIKNtgTRkjXQ03CGwtooY65Seg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>在 inline-style 内联样式中绑定 data 数据</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <p :style="pStyle">这是一个段落</p>
+        <button class="btn increase" @click="increaseFontSize">
+          Increase Font Size
+        </button>
+        <button class="btn decrease" @click="decreaseFontSize">
+          Decrease Font Size
+        </button>
+      </div>
+      <p :class="[textClass, dangerClass, {hide: isHidden}]">
+        This is paragraph
+      </p>
+      <button @click="isHidden = !isHidden">Toggle the above paragram</button>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
