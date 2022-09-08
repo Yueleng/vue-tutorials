@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.38/vue.global.min.js"
+      integrity="sha512-HdUtlwGlOvElJxGY2Ef7wEIxHS0OUmEMc3u+jLQuKWYwPRmGc0SGSOKJzC7uOIKNtgTRkjXQ03CGwtooY65Seg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>表单输入数据处理</title>
+  </head>
+  <body>
+    <div id="app">
+      <a href="https://zxuqian.cn" @click.prevent>Test</a>
+      <div class="input-field">
+        <label for="username">User Name: </label>
+        <input
+          :value="username"
+          type="text"
+          id="username"
+          @input="handleInput"
+        />
+        <button @click="resetUserName">Reset</button>
+      </div>
+      <div class="result">
+        <p>你输入的用户名是: {{ username }}</p>
+      </div>
+      <div class="input-field">
+        <label for="username">User Name: </label>
+        <input v-model="username2" />
+        <button @click="resetUserName2">Reset</button>
+      </div>
+      <div class="result">
+        <p>你输入的用户名是: {{ username2 }}</p>
+      </div>
+      <form class="form" @submit.prevent="handleSubmit">
+        <label for="username">User Name</label>
+        <input name="username" type="text" />
+        <label for="gender">Sex</label>
+        <div id="gender" class="radio-group">
+          <input
+            type="radio"
+            name="gender"
+            value="male"
+            v-model="gender"
+          /><span>Male</span>
+          <input
+            type="radio"
+            name="gender"
+            value="female"
+            v-model="gender"
+          /><span>Female</span>
+        </div>
+        <label for="interest">Interest: </label>
+        <div id="interest" class="checkbox-group">
+          <input
+            type="checkbox"
+            name="interest"
+            value="frontend"
+            v-model="interests"
+          />
+          <span>Frontend</span>
+          <input
+            type="checkbox"
+            name="interest"
+            value="backend"
+            v-model="interests"
+          />
+          <span>Backend</span>
+          <input
+            type="checkbox"
+            name="interest"
+            value="fullstack"
+            v-model="interests"
+          />
+          <span>Fullstack</span>
+        </div>
+        <label for="occupation"> Occupation: </label>
+        <select name="occupation" v-model="occupation">
+          <option value="frontend">Frontend Engineer</option>
+          <option value="backend">Backend Engineer</option>
+          <option value="fullstack">Fullstack Engineer</option>
+        </select>
+        <label for="intro"> Introduction: </label>
+        <textarea rows="10" v-model="intro"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div class="result">
+        <ul>
+          <li>Sex: {{ gender }}</li>
+          <li>Interest: {{interests}}</li>
+          <li>Occupation: {{occupation}}</li>
+          <li>Intro: {{ intro }}</li>
+        </ul>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
