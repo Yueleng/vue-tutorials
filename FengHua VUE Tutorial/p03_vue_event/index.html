@@ -18,9 +18,29 @@
       <div class="question">
         <p>What kind of framework Vue.js is</p>
         <p v-show="showAnswer">The Progressive JavaScript Framework</p>
-        <button @click="showAnswer = !showAnswer">{{label}} Answer</button>
+        <button @click="toggleAnswer">{{label}}</button>
+        <ul>
+          <li v-for="blog in vueBlog">{{ blog }}</li>
+          <!-- <li v-for="blog in getVueBlog(1)">{{ blog }}</li> -->
+        </ul>
+        <div>
+          <button>Counter: {{ counter }}</button>
+          <button @click="blogPosts.push('Advanced Vue')">
+            Push one more vue book
+          </button>
+        </div>
+      </div>
+      <div class="question">
+        <ul>
+          <li v-for="blog in blogPosts2">{{ blog }}</li>
+        </ul>
+        <h2>{{count}} in Total</h2>
+        <button @click="newBlog = 'Advanced Vue'">
+          Push one more vue book
+        </button>
       </div>
     </div>
+
     <script src="index.js"></script>
   </body>
 </html>
