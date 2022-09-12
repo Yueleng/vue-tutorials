@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.38/vue.global.min.js"
+      integrity="sha512-HdUtlwGlOvElJxGY2Ef7wEIxHS0OUmEMc3u+jLQuKWYwPRmGc0SGSOKJzC7uOIKNtgTRkjXQ03CGwtooY65Seg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>v-html：在模板中输出原始的 HTML 代码</title>
+  </head>
+  <body>
+    <div id="app">
+      <article v-html="content"></article>
+      <article>{{content}}</article>
+      <div>
+        <p>List Length {{list.length}}</p>
+        <p v-once>List Initial Length {{list.length}}</p>
+        <button @click="list.push(list.length + 1)">Add Element</button>
+      </div>
+      <!--  -->
+      <div>
+        <input
+          type="text"
+          v-model="dynamic.dataValue"
+          :[dynamic.attr]="dynamic.value"
+          @[dynamic.event]="handleChange"
+        />
+      </div>
+      <!--  -->
+      <div>
+        <ul>
+          <!-- <li v-for="value in blogPost">{{value}}</li> -->
+          <li v-for="(value, name, index) in blogPost">
+            {{index}}. {{name}} - {{value}}
+          </li>
+        </ul>
+        <ul>
+          <li v-for="todo in todos" :key="todo.id">{{ todo.content }}</li>
+        </ul>
+        <ul>
+          <li v-for="n in 5" :key="n">{{ n }}</li>
+        </ul>
+      </div>
+      <!--  -->
+      <div>
+        <template v-if="show" class="content">
+          <h1>标题</h1>
+          <p>这是一个段落</p>
+        </template>
+        <button @click="show = !show">切换显示</button>
+      </div>
+      <!--  -->
+      <div>
+        <ul>
+          <li
+            v-for="todo in todos"
+            :key="todo.id"
+            @click="handleClick(todo.id, $event), showContent(todo.content)"
+          >
+            {{todo.content}}
+          </li>
+        </ul>
+      </div>
+      <!-- normal: from inner html element to containing html element  -->
+      <p>Normal</p>
+      <ul @click="handleUlClick">
+        <li @click="handleLiClick">1</li>
+        <li>2</li>
+      </ul>
+      <!-- stop-->
+      <p>Stop: Stops from current element</p>
+      <ul @click="handleUlClick">
+        <li @click.stop="handleLiClick">1</li>
+        <li>2</li>
+      </ul>
+      <!-- capture -->
+      <p>Capture: Capture the container first, then the inner element</p>
+      <ul @click.capture="handleUlClick">
+        <li @click="handleLiClick">1</li>
+        <li>2</li>
+      </ul>
+      <!-- self -->
+      <p>Self: Only Triggers Self event</p>
+      <ul @click.self="handleUlClick">
+        <li @click="handleLiClick">1</li>
+        <li>2</li>
+      </ul>
+      <!-- once -->
+      <p>Once: Only Triggers Once</p>
+      <ul @click.once="handleUlClick">
+        <li @click="handleLiClick">1</li>
+        <li>2</li>
+      </ul>
+      <!-- Mounce Event -->
+      <div>
+        <ul @mousedown.right="comments.reverse()">
+          <li v-for="content in comments">{{ content }}</li>
+        </ul>
+        <input
+          type="text"
+          v-model="comment"
+          @keyup.ctrl.enter.exact="addComment"
+        />
+      </div>
+      <!-- -->
+      <p>Lazy Trim Number</p>
+      <div>
+        <input type="text" v-model.lazy.trim="username" />
+        <p>{{ username }}</p>
+        <input type="text" v-model.number="year" />
+        <!-- <input type="number" v-model="year" /> -->
+        <p>{{ typeof year }}</p>
+      </div>
+      <!--  -->
+      <p>Vue Instance</p>
+      <div>
+        <p>{{ msg }} {{ name }}</p>
+        <p>{{ greetings }}</p>
+      </div>
+      <!--  -->
+      <div>
+        <ul>
+          <li v-for="post in posts" :key="post.id">{{ post.title }}</li>
+        </ul>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
