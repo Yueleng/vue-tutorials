@@ -12,3 +12,11 @@
   - in `watch`, we usually do some time comsuming or async logic.
   - in `computed`, you can also change the value of `data`. But it really is not recommended. we usually don't recommend side effect introduced into the `computed`.
   - in `watch`, you can use the `method` in order to reduce code.
+
+## Components
+
+- Why `component` design pattern: 
+  - Reduce each file's complexity and size, 
+  - Keep each file's independence,
+  - Reusability.
+  - Team Collaboration
