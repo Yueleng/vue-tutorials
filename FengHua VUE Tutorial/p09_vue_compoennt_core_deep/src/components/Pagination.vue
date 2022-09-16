@@ -13,6 +13,12 @@ export default {
       currentPage: this.defaultCurrentPage,
     };
   },
+  watch: {
+    totalPage(newVal, oldVal) {
+      console.log(newVal, oldVal);
+      this.currentPage = 1;
+    },
+  },
 };
 </script>
 
