@@ -1,6 +1,11 @@
 # VUE-Tutorial
  VUE Tutorials
 
+## Scaffolding
+  - `yarn create vite`
+  - `yarn install`
+  - `vite run dev` or `vite dev`
+
 ## Difference between `computed`, `methods`, `watch`
   - `computed` will cache the result, while `methods` won't cache the result.
   - `computed` will recalculate whenever the dependency `data` changed.
