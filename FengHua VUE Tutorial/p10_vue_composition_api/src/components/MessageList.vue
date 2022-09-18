@@ -79,6 +79,27 @@ export default {
       }
     );
 
+    // The comparision is by reference,
+    // won't work, same for `Array`
+    // watch(
+    //   () => options,
+    //   (newVal, oldVal) => {
+    //     console.log("Object watch");
+    //     console.log(newVal, oldVal);
+    //   }
+    // );
+
+    // Set deep to true, we can detect Object
+    // attribute change
+    watch(
+      () => options,
+      (newVal, oldVal) => {
+        console.log("Object watch");
+        console.log(newVal, oldVal);
+      },
+      { deep: true }
+    );
+
     return { messages, options, searchedMessages, searchTerm };
   },
 };
