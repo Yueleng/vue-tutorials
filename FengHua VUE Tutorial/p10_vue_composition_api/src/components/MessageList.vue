@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, watch } from "vue";
 export default {
   setup() {
     const messages = ref([
@@ -40,6 +40,18 @@ export default {
     );
 
     console.log("searchedMessages.value", searchedMessages.value);
+
+    watch(searchTerm, (newVal, oldVal) => {
+      console.log("Search Term: ", newVal, oldVal);
+    });
+
+    // This also works
+    // watch(
+    //   () => searchTerm.value,
+    //   (newVal, oldVal) => {
+    //     console.log("searchTerm[callback]", newVal, oldVal);
+    //   }
+    // );
 
     const options = reactive({
       title: "Message List",
