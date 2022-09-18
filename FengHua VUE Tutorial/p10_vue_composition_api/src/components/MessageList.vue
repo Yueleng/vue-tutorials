@@ -90,14 +90,25 @@ export default {
     // );
 
     // Set deep to true, we can detect Object
-    // attribute change
+    // attribute change, but the two objects are
+    // the same object.
+    // watch(
+    //   () => options,
+    //   (newVal, oldVal) => {
+    //     console.log("Object watch");
+    //     console.log(newVal, oldVal);
+    //     console.log("Same Object: ", newVal === oldVal); // true
+    //   },
+    //   { deep: true }
+    // );
+
+    // Pure Cloning
     watch(
-      () => options,
+      () => JSON.parse(JSON.stringify(options)),
       (newVal, oldVal) => {
-        console.log("Object watch");
         console.log(newVal, oldVal);
-      },
-      { deep: true }
+        console.log("Same Object", newVal === oldVal);
+      }
     );
 
     return { messages, options, searchedMessages, searchTerm };
