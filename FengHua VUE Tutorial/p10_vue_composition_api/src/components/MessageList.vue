@@ -1,27 +1,53 @@
 <template>
-  <ul>
-    <li v-for="msg in messages" :key="msg.id">{{ msg.content }}</li>
-  </ul>
-  <button @click="messages = []">Click to delete</button>
+  <div>
+    <h2>{{ options.title }}</h2>
+    <p>
+      user: {{ options.user.name }}, active:
+      {{ options.user.active ? "yes" : "no" }}
+    </p>
+    <ul>
+      <li v-for="msg in messages" :key="msg.id">{{ msg.content }}</li>
+    </ul>
+    <button @click="messages = []">Click to delete</button>
+    <button @click="options.title = 'This is updated title'">
+      Update Title
+    </button>
+    <button @click="options.user.name = 'George'">Update Name</button>
+  </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 export default {
   setup() {
     const messages = ref([
-      { id: 1, content: "这是一条消息提醒1" },
-      { id: 2, content: "这是一条消息提醒2" },
-      { id: 3, content: "这是一条消息提醒3" },
-      { id: 4, content: "这是一条消息提醒4" },
+      { id: 1, content: "This is message 1" },
+      { id: 2, content: "This is message 2" },
+      { id: 3, content: "This is message 3" },
+      { id: 4, content: "This is message 4" },
     ]);
 
     console.log(messages.value);
 
-    return { messages };
+    const options = reactive({
+      title: "Message List",
+      user: {
+        name: "Jack",
+        active: true,
+      },
+    });
+
+    console.log(options);
+
+    return { messages, options };
   },
 };
 </script>
 <style scoped>
+div {
+  display: grid;
+  place-items: center;
+}
+
 h2 {
   color: hsl(280deg, 100%, 70%);
   margin-bottom: 24px;
