@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, watch } from "vue";
+import { ref, reactive, computed, watch, watchEffect } from "vue";
 export default {
   setup() {
     const messages = ref([
@@ -118,6 +118,15 @@ export default {
         console.log(newVals, oldVals);
       }
     );
+
+    // watch Effect
+
+    watchEffect(() => {
+      console.log("---watchEffect Starts---");
+      console.log(options.title);
+      console.log(options.user.name);
+      console.log("---watchEffect Ends---");
+    });
 
     return { messages, options, searchedMessages, searchTerm };
   },
