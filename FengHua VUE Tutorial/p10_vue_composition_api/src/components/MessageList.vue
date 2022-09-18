@@ -5,8 +5,10 @@
       user: {{ options.user.name }}, active:
       {{ options.user.active ? "yes" : "no" }}
     </p>
+    <!-- v-model can bind ref, it is the same with data -->
+    <input type="text" placeholder="Search Messages" v-model="searchTerm" />
     <ul>
-      <li v-for="msg in messages" :key="msg.id">{{ msg.content }}</li>
+      <li v-for="msg in searchedMessages" :key="msg.id">{{ msg.content }}</li>
     </ul>
     <button @click="messages = []">Click to delete</button>
     <button @click="options.title = 'This is updated title'">
@@ -15,8 +17,9 @@
     <button @click="options.user.name = 'George'">Update Name</button>
   </div>
 </template>
+
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 export default {
   setup() {
     const messages = ref([
@@ -28,6 +31,16 @@ export default {
 
     console.log(messages.value);
 
+    const searchTerm = ref("");
+
+    const searchedMessages = computed(() =>
+      searchTerm.value === ""
+        ? messages.value
+        : messages.value.filter((msg) => msg.content.includes(searchTerm.value))
+    );
+
+    console.log("searchedMessages.value", searchedMessages.value);
+
     const options = reactive({
       title: "Message List",
       user: {
@@ -38,7 +51,7 @@ export default {
 
     console.log(options);
 
-    return { messages, options };
+    return { messages, options, searchedMessages, searchTerm };
   },
 };
 </script>
@@ -73,6 +86,16 @@ li::before {
   height: 8px;
   background-color: hsl(280deg, 100%, 70%);
   border-radius: 100%;
+}
+
+input,
+select {
+  padding: 8px 14px;
+  border: 1px solid hsl(280deg, 50%, 50%);
+  border-radius: 4px;
+  outline: none;
+  background: hsl(280deg, 50%, 30%, 0.2);
+  color: white;
 }
 
 button {
