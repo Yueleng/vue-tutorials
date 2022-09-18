@@ -64,20 +64,20 @@ export default {
     console.log(options);
 
     // level 1 Object attribute
-    watch(
-      () => options.title,
-      (newVal, oldVal) => {
-        console.log(newVal, oldVal);
-      }
-    );
+    // watch(
+    //   () => options.title,
+    //   (newVal, oldVal) => {
+    //     console.log(newVal, oldVal);
+    //   }
+    // );
 
     // level 2 Object attribute
-    watch(
-      () => options.user.name,
-      (newVal, oldVal) => {
-        console.log(newVal, oldVal);
-      }
-    );
+    // watch(
+    //   () => options.user.name,
+    //   (newVal, oldVal) => {
+    //     console.log(newVal, oldVal);
+    //   }
+    // );
 
     // The comparision is by reference,
     // won't work, same for `Array`
@@ -108,6 +108,14 @@ export default {
       (newVal, oldVal) => {
         console.log(newVal, oldVal);
         console.log("Same Object", newVal === oldVal);
+      }
+    );
+
+    // Watch multiple Values at the same time
+    watch(
+      [() => options.title, () => options.user.name],
+      (newVals, oldVals) => {
+        console.log(newVals, oldVals);
       }
     );
 
