@@ -43,7 +43,4 @@ body {
   display: grid;
   place-items: center;
 }
-
-.container {
-}
 </style>

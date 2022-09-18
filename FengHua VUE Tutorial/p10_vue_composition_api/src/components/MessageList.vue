@@ -63,6 +63,22 @@ export default {
 
     console.log(options);
 
+    // level 1 Object attribute
+    watch(
+      () => options.title,
+      (newVal, oldVal) => {
+        console.log(newVal, oldVal);
+      }
+    );
+
+    // level 2 Object attribute
+    watch(
+      () => options.user.name,
+      (newVal, oldVal) => {
+        console.log(newVal, oldVal);
+      }
+    );
+
     return { messages, options, searchedMessages, searchTerm };
   },
 };
