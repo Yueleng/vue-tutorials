@@ -11,7 +11,7 @@
       <li v-for="msg in searchedMessages" :key="msg.id">{{ msg.content }}</li>
     </ul>
     <button @click="messages = []">Click to delete</button>
-    <button @click="options.title = 'This is updated title'">
+    <button @click="options.title = 'This is updated title' + Math.random()">
       Update Title
     </button>
     <button @click="options.user.name = 'George'">Update Name</button>
@@ -64,12 +64,15 @@ export default {
     console.log(options);
 
     // level 1 Object attribute
-    // watch(
-    //   () => options.title,
-    //   (newVal, oldVal) => {
-    //     console.log(newVal, oldVal);
-    //   }
-    // );
+    watch(
+      () => options.title,
+      (newVal, oldVal, onInvalidate) => {
+        console.log(newVal, oldVal);
+        onInvalidate(() => {
+          console.log("Some Clearning Logic...");
+        });
+      }
+    );
 
     // level 2 Object attribute
     // watch(
@@ -120,13 +123,15 @@ export default {
     );
 
     // watch Effect
-
-    watchEffect(() => {
-      console.log("---watchEffect Starts---");
-      console.log(options.title);
-      console.log(options.user.name);
-      console.log("---watchEffect Ends---");
-    });
+    // watchEffect((onInvalidate) => {
+    //   console.log("---watchEffect Starts---");
+    //   console.log(options.title);
+    //   console.log(options.user.name);
+    //   onInvalidate(() => {
+    //     console.log("Some Clear Logic...");
+    //   })
+    //   console.log("---watchEffect Ends---");
+    // });
 
     return { messages, options, searchedMessages, searchTerm };
   },
