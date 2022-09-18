@@ -10,6 +10,14 @@
     <ul>
       <li v-for="msg in searchedMessages" :key="msg.id">{{ msg.content }}</li>
     </ul>
+    <hr />
+    <ul>
+      <MessageListItem
+        v-for="msg in messages"
+        :key="msg.id"
+        :msg="msg.content"
+      ></MessageListItem>
+    </ul>
     <button @click="messages = []">Click to delete</button>
     <button @click="options.title = 'This is updated title' + Math.random()">
       Update Title
@@ -20,7 +28,9 @@
 
 <script>
 import { ref, reactive, computed, watch, watchEffect } from "vue";
+import MessageListItem from "./MessageListItem.vue";
 export default {
+  components: { MessageListItem },
   setup() {
     const messages = ref([
       { id: 1, content: "This is message 1" },
@@ -30,6 +40,10 @@ export default {
     ]);
 
     console.log(messages.value);
+
+    setTimeout(() => {
+      messages.value[1].content = "This is message 1 - modified";
+    }, 1500);
 
     const searchTerm = ref("");
 
