@@ -16,6 +16,7 @@
         v-for="msg in messages"
         :key="msg.id"
         :msg="msg.content"
+        :id="msg.id"
       ></MessageListItem>
     </ul>
     <button @click="messages = []">Click to delete</button>

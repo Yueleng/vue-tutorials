@@ -18,9 +18,9 @@ export default {
   setup() {
     const messages = ref([
       { id: 1, content: "This is message1" },
-      { id: 1, content: "This is message2" },
-      { id: 1, content: "This is message3" },
-      { id: 1, content: "This is message4" },
+      { id: 2, content: "This is message2" },
+      { id: 3, content: "This is message3" },
+      { id: 4, content: "This is message4" },
     ]);
 
     // messages is of Ref type
@@ -52,7 +52,7 @@ body {
 
 #app {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   max-width: 100%;
   display: grid;
   place-items: center;

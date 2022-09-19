@@ -1,11 +1,11 @@
 <template>
-  <li>{{ msg }}</li>
+  <li>{{ msg }} <button @click="removeMessage(id)">Delete Msg</button></li>
 </template>
 <script>
 import { ref, watch, watchEffect, toRefs } from "vue";
 
 export default {
-  props: ["msg"],
+  props: ["msg", "id"],
   setup(props) {
     const { msg } = toRefs(props);
 
@@ -13,7 +13,11 @@ export default {
       console.log(newMsg);
     });
 
-    return {};
+    function removeMessage(id) {
+      console.log("Delete Msg", id);
+    }
+
+    return { removeMessage };
   },
 };
 </script>
