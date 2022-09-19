@@ -30,27 +30,33 @@
 import { ref, reactive, computed, watch, watchEffect } from "vue";
 import MessageListItem from "./MessageListItem.vue";
 export default {
+  props: ["messages"],
   components: { MessageListItem },
-  setup() {
-    const messages = ref([
-      { id: 1, content: "This is message 1" },
-      { id: 2, content: "This is message 2" },
-      { id: 3, content: "This is message 3" },
-      { id: 4, content: "This is message 4" },
-    ]);
+  setup(props) {
+    // Notice that the mssages is Proxy here
+    // instead of RefImpl
+    console.log(props.messages);
 
-    console.log(messages.value);
+    const { messages } = props;
+
+    watch(
+      () => props.messages,
+      (newMessages) => {
+        console.log(newMessages.length);
+      },
+      { deep: true }
+    );
 
     setTimeout(() => {
-      messages.value[1].content = "This is message 1 - modified";
+      messages[1].content = "This is message 2 - modified";
     }, 1500);
 
     const searchTerm = ref("");
 
     const searchedMessages = computed(() =>
       searchTerm.value === ""
-        ? messages.value
-        : messages.value.filter((msg) => msg.content.includes(searchTerm.value))
+        ? messages
+        : messages.filter((msg) => msg.content.includes(searchTerm.value))
     );
 
     console.log("searchedMessages.value", searchedMessages.value);

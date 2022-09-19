@@ -1,19 +1,33 @@
 <template>
   <main>
     <div class="container">
-      <MessageList />
+      <MessageList :messages="messages" />
+      <button @onlick="messages.pop()">Delete One Message</button>
     </div>
   </main>
 </template>
 
 <script>
+import { ref } from "vue";
 import MessageList from "./components/MessageList.vue";
 
 export default {
   components: {
     MessageList,
   },
-  setup() {},
+  setup() {
+    const messages = ref([
+      { id: 1, content: "This is message1" },
+      { id: 1, content: "This is message2" },
+      { id: 1, content: "This is message3" },
+      { id: 1, content: "This is message4" },
+    ]);
+
+    // messages is of Ref type
+    console.log("messages type: ", messages);
+
+    return { messages };
+  },
 };
 </script>
 
