@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="loading">LOADING...</div>
+  <div v-else>
     <h2>{{ options.title }}</h2>
     <p>
       user: {{ options.user.name }}, active:
@@ -29,17 +30,30 @@
 </template>
 
 <script>
-import { ref, reactive, computed, watch, watchEffect } from "vue";
+import { ref, reactive, computed, watch, watchEffect, onMounted } from "vue";
 import MessageListItem from "./MessageListItem.vue";
 export default {
   components: { MessageListItem },
   setup(props) {
-    const messages = ref([
-      { id: 1, content: "This is message 1" },
-      { id: 2, content: "This is message 2" },
-      { id: 3, content: "This is message 3" },
-      { id: 4, content: "This is message 4" },
-    ]);
+    const messages = ref([]);
+    const loading = ref(false);
+
+    onMounted(() => {
+      console.log("onMounted!");
+      loading.value = true;
+      setTimeout(() => {
+        messages.value = [
+          { id: 1, content: "这是一条消息提醒1" },
+          { id: 2, content: "这是一条消息提醒2" },
+          { id: 3, content: "这是一条消息提醒3" },
+          { id: 4, content: "这是一条消息提醒4" },
+        ];
+        loading.value = false;
+        setTimeout(() => {
+          messages.value[1].content = "This is message 2 - modified";
+        }, 1500);
+      }, 5000);
+    });
 
     function removeMessage(id) {
       messages.value = messages.value.filter((msg) => msg.id !== id);
@@ -52,10 +66,6 @@ export default {
       },
       { deep: true }
     );
-
-    setTimeout(() => {
-      messages.value[1].content = "This is message 2 - modified";
-    }, 1500);
 
     const searchTerm = ref("");
 
@@ -159,10 +169,18 @@ export default {
     //   console.log("---watchEffect Ends---");
     // });
 
-    return { messages, removeMessage, options, searchedMessages };
+    return {
+      messages,
+      loading,
+      removeMessage,
+      options,
+      searchTerm,
+      searchedMessages,
+    };
   },
 };
 </script>
+
 <style scoped>
 div {
   display: grid;

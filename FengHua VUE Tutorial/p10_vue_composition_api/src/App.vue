@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <MessageList :messages="messages" :removeBtn="removeMessage" />
+      <MessageList />
       <button @onlick="messages.pop()">Delete One Message</button>
     </div>
   </main>
