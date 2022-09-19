@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <MessageList :messages="messages" />
+      <MessageList :messages="messages" :removeBtn="removeMessage" />
       <button @onlick="messages.pop()">Delete One Message</button>
     </div>
   </main>
@@ -15,19 +15,7 @@ export default {
   components: {
     MessageList,
   },
-  setup() {
-    const messages = ref([
-      { id: 1, content: "This is message1" },
-      { id: 2, content: "This is message2" },
-      { id: 3, content: "This is message3" },
-      { id: 4, content: "This is message4" },
-    ]);
-
-    // messages is of Ref type
-    console.log("messages type: ", messages);
-
-    return { messages };
-  },
+  setup() {},
 };
 </script>
 

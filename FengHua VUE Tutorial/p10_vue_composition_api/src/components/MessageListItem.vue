@@ -1,11 +1,12 @@
 <template>
-  <li>{{ msg }} <button @click="removeMessage(id)">Delete Msg</button></li>
+  <li>{{ msg }} <button @click="$emit('remove', id)">Delete Msg</button></li>
 </template>
 <script>
 import { ref, watch, watchEffect, toRefs } from "vue";
 
 export default {
   props: ["msg", "id"],
+  emits: ["remove"],
   setup(props) {
     const { msg } = toRefs(props);
 

@@ -17,6 +17,7 @@
         :key="msg.id"
         :msg="msg.content"
         :id="msg.id"
+        @remove="removeMessage"
       ></MessageListItem>
     </ul>
     <button @click="messages = []">Click to delete</button>
@@ -31,17 +32,21 @@
 import { ref, reactive, computed, watch, watchEffect } from "vue";
 import MessageListItem from "./MessageListItem.vue";
 export default {
-  props: ["messages"],
   components: { MessageListItem },
   setup(props) {
-    // Notice that the mssages is Proxy here
-    // instead of RefImpl
-    console.log(props.messages);
+    const messages = ref([
+      { id: 1, content: "This is message 1" },
+      { id: 2, content: "This is message 2" },
+      { id: 3, content: "This is message 3" },
+      { id: 4, content: "This is message 4" },
+    ]);
 
-    const { messages } = props;
+    function removeMessage(id) {
+      messages.value = messages.value.filter((msg) => msg.id !== id);
+    }
 
     watch(
-      () => props.messages,
+      messages,
       (newMessages) => {
         console.log(newMessages.length);
       },
@@ -49,15 +54,15 @@ export default {
     );
 
     setTimeout(() => {
-      messages[1].content = "This is message 2 - modified";
+      messages.value[1].content = "This is message 2 - modified";
     }, 1500);
 
     const searchTerm = ref("");
 
     const searchedMessages = computed(() =>
       searchTerm.value === ""
-        ? messages
-        : messages.filter((msg) => msg.content.includes(searchTerm.value))
+        ? messages.value
+        : messages.value.filter((msg) => msg.content.includes(searchTerm.value))
     );
 
     console.log("searchedMessages.value", searchedMessages.value);
@@ -154,7 +159,7 @@ export default {
     //   console.log("---watchEffect Ends---");
     // });
 
-    return { messages, options, searchedMessages, searchTerm };
+    return { messages, removeMessage, options, searchedMessages };
   },
 };
 </script>
