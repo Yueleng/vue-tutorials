@@ -1,26 +1,32 @@
 <template>
   <div class="card">
     <!-- <MovieItem :title="movie.title" :description="movie.description" /> -->
-    <MovieItem :description="movie.description" />
+    <MovieItem />
   </div>
 </template>
 
 <script>
 import MovieItem from "./MovieItem.vue";
-import { provide } from "vue";
+import { provide, toRef, ref } from "vue";
 export default {
   components: {
     MovieItem,
   },
   setup() {
-    const movie = {
+    const movie = ref({
       title: "Movie",
       description: "This is the description of the movie",
-    };
+    });
 
-    provide("title", movie.title);
+    provide("movie", movie);
+    provide("description", toRef(movie.value, "description"));
 
-    return { movie };
+    setTimeout(() => {
+      movie.value.title = "Movie - modified";
+      movie.value.description = "Movie Description - modified";
+    }, 1500);
+
+    return {};
   },
   // data() {
   //   return {

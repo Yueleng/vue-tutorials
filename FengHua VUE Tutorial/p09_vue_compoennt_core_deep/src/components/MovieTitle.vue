@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ title }}</h2>
+  <h2>{{ movie.title }}</h2>
 </template>
 <script>
 import { inject } from "vue";
@@ -7,8 +7,8 @@ export default {
   // props: ["title"],
   // inject: ["title"],
   setup() {
-    const title = inject("title");
-    return { title };
+    const movie = inject("movie");
+    return { movie };
   },
 };
 </script>

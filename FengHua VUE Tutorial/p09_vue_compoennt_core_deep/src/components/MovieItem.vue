@@ -8,10 +8,15 @@
 
 <script>
 import MovieTitle from "./MovieTitle.vue";
+import { inject } from "vue";
 export default {
   components: { MovieTitle },
   // props: ["title", "description"],
-  props: ["description"],
+  // props: ["description"],
+  setup() {
+    const description = inject("description");
+    return { description };
+  },
 };
 </script>
 
