@@ -7,23 +7,34 @@
 
 <script>
 import MovieItem from "./MovieItem.vue";
+import { provide } from "vue";
 export default {
   components: {
     MovieItem,
   },
-  data() {
-    return {
-      movie: {
-        title: "Inception",
-        description: "Inception is about steal your dream",
-      },
+  setup() {
+    const movie = {
+      title: "Movie",
+      description: "This is the description of the movie",
     };
+
+    provide("title", movie.title);
+
+    return { movie };
   },
-  provide() {
-    return {
-      title: this.movie.title,
-    };
-  },
+  // data() {
+  //   return {
+  //     movie: {
+  //       title: "Inception",
+  //       description: "Inception is about steal your dream",
+  //     },
+  //   };
+  // },
+  // provide() {
+  //   return {
+  //     title: this.movie.title,
+  //   };
+  // },
 };
 </script>
 
