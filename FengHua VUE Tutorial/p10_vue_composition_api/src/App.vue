@@ -4,16 +4,18 @@
       <MessageList />
       <button @onlick="messages.pop()">Delete One Message</button>
     </div>
+    <AutoFocus />
   </main>
 </template>
 
 <script>
-import { ref } from "vue";
 import MessageList from "./components/MessageList.vue";
+import AutoFocus from "./components/AutoFocus.vue";
 
 export default {
   components: {
     MessageList,
+    AutoFocus,
   },
   setup() {},
 };
