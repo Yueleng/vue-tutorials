@@ -5,17 +5,31 @@
       <button @onlick="messages.pop()">Delete One Message</button>
     </div>
     <AutoFocus />
+    <BaseLayout>
+      <template v-slot:header>
+        <nav>
+          <a href="#">Main</a>
+          <a href="#">About</a>
+          <a href="#">Contact Us</a>
+        </nav>
+      </template>
+      <template v-slot:default>
+        <p>This is Content</p>
+      </template>
+    </BaseLayout>
   </main>
 </template>
 
 <script>
 import MessageList from "./components/MessageList.vue";
 import AutoFocus from "./components/AutoFocus.vue";
+import BaseLayout from "./components/BaseLayout.vue";
 
 export default {
   components: {
     MessageList,
     AutoFocus,
+    BaseLayout,
   },
   setup() {},
 };
