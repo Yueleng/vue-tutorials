@@ -21,30 +21,17 @@
   </main>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import MessageList from "./components/MessageList.vue";
 import AutoFocus from "./components/AutoFocus.vue";
 import BaseLayout from "./components/BaseLayout.vue";
 import UserTable from "./components/UserTable.vue";
 
-export default {
-  components: {
-    MessageList,
-    AutoFocus,
-    BaseLayout,
-    UserTable,
-  },
-  setup() {
-    const test = ref("test");
-
-    setTimeout(() => {
-      test.value = "changed";
-    }, 2000);
-
-    return { test };
-  },
-};
+const test = ref("test");
+setTimeout(() => {
+  test.value = "changed";
+}, 2000);
 </script>
 
 <style>

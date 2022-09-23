@@ -30,160 +30,143 @@
   </div>
 </template>
 
-<script>
-import { ref, reactive, computed, watch, watchEffect, onMounted } from "vue";
+<script setup>
+import { ref, reactive, computed, watch, watchEffect, useAttrs } from "vue";
 import useListData from "../composables/useListData";
 import MessageListItem from "./MessageListItem.vue";
-export default {
-  components: { MessageListItem },
-  setup(props, { attrs }) {
-    const {
-      data: messages,
-      removeItem: removeMessage,
-      sortByKey,
-    } = useListData([
-      { id: 1, content: "这是一条消息提醒1" },
-      { id: 2, content: "这是一条消息提醒2" },
-      { id: 3, content: "这是一条消息提醒3" },
-      { id: 4, content: "这是一条消息提醒4" },
-    ]);
-    const loading = ref(false);
 
-    console.log(attrs);
-    console.log(attrs.class);
-    console.log(attrs["data-title"]);
+const {
+  data: messages,
+  removeItem: removeMessage,
+  sortByKey,
+} = useListData([
+  { id: 1, content: "这是一条消息提醒1" },
+  { id: 2, content: "这是一条消息提醒2" },
+  { id: 3, content: "这是一条消息提醒3" },
+  { id: 4, content: "这是一条消息提醒4" },
+]);
+const loading = ref(false);
+const attrs = useAttrs();
+console.log(attrs);
+console.log(attrs.class);
+console.log(attrs["data-title"]);
 
-    // watchEffect(() => {
-    //   console.log(attrs.test, " in MessageList.vue");
-    // });
+// watchEffect(() => {
+//   console.log(attrs.test, " in MessageList.vue");
+// });
 
-    // if we destruct attrs, it is not reactive any more.
-    const { test } = attrs;
-    watchEffect(() => {
-      console.log(test, " in MessageList.vue");
-    });
+// if we destruct attrs, it is not reactive any more.
+const { test } = attrs;
+watchEffect(() => {
+  console.log(test, " in MessageList.vue");
+});
 
-    watch(
-      messages,
-      (newMessages) => {
-        console.log(newMessages.length);
-      },
-      { deep: true }
-    );
-
-    const searchTerm = ref("");
-
-    const searchedMessages = computed(() =>
-      searchTerm.value === ""
-        ? messages.value
-        : messages.value.filter((msg) => msg.content.includes(searchTerm.value))
-    );
-
-    console.log("searchedMessages.value", searchedMessages.value);
-
-    watch(searchTerm, (newVal, oldVal) => {
-      console.log("Search Term: ", newVal, oldVal);
-    });
-
-    // This also works
-    // watch(
-    //   () => searchTerm.value,
-    //   (newVal, oldVal) => {
-    //     console.log("searchTerm[callback]", newVal, oldVal);
-    //   }
-    // );
-
-    const options = reactive({
-      title: "Message List",
-      user: {
-        name: "Jack",
-        active: true,
-      },
-    });
-
-    console.log(options);
-
-    // level 1 Object attribute
-    watch(
-      () => options.title,
-      (newVal, oldVal, onInvalidate) => {
-        console.log(newVal, oldVal);
-        onInvalidate(() => {
-          console.log("Some Clearning Logic...");
-        });
-      }
-    );
-
-    // level 2 Object attribute
-    // watch(
-    //   () => options.user.name,
-    //   (newVal, oldVal) => {
-    //     console.log(newVal, oldVal);
-    //   }
-    // );
-
-    // The comparision is by reference,
-    // won't work, same for `Array`
-    // watch(
-    //   () => options,
-    //   (newVal, oldVal) => {
-    //     console.log("Object watch");
-    //     console.log(newVal, oldVal);
-    //   }
-    // );
-
-    // Set deep to true, we can detect Object
-    // attribute change, but the two objects are
-    // the same object.
-    // watch(
-    //   () => options,
-    //   (newVal, oldVal) => {
-    //     console.log("Object watch");
-    //     console.log(newVal, oldVal);
-    //     console.log("Same Object: ", newVal === oldVal); // true
-    //   },
-    //   { deep: true }
-    // );
-
-    // Pure Cloning
-    watch(
-      () => JSON.parse(JSON.stringify(options)),
-      (newVal, oldVal) => {
-        console.log(newVal, oldVal);
-        console.log("Same Object", newVal === oldVal);
-      }
-    );
-
-    // Watch multiple Values at the same time
-    watch(
-      [() => options.title, () => options.user.name],
-      (newVals, oldVals) => {
-        console.log(newVals, oldVals);
-      }
-    );
-
-    // watch Effect
-    // watchEffect((onInvalidate) => {
-    //   console.log("---watchEffect Starts---");
-    //   console.log(options.title);
-    //   console.log(options.user.name);
-    //   onInvalidate(() => {
-    //     console.log("Some Clear Logic...");
-    //   })
-    //   console.log("---watchEffect Ends---");
-    // });
-
-    return {
-      messages,
-      loading,
-      removeMessage,
-      options,
-      searchTerm,
-      searchedMessages,
-      sortByKey,
-    };
+watch(
+  messages,
+  (newMessages) => {
+    console.log(newMessages.length);
   },
-};
+  { deep: true }
+);
+
+const searchTerm = ref("");
+
+const searchedMessages = computed(() =>
+  searchTerm.value === ""
+    ? messages.value
+    : messages.value.filter((msg) => msg.content.includes(searchTerm.value))
+);
+
+console.log("searchedMessages.value", searchedMessages.value);
+
+watch(searchTerm, (newVal, oldVal) => {
+  console.log("Search Term: ", newVal, oldVal);
+});
+
+// This also works
+// watch(
+//   () => searchTerm.value,
+//   (newVal, oldVal) => {
+//     console.log("searchTerm[callback]", newVal, oldVal);
+//   }
+// );
+
+const options = reactive({
+  title: "Message List",
+  user: {
+    name: "Jack",
+    active: true,
+  },
+});
+
+console.log(options);
+
+// level 1 Object attribute
+watch(
+  () => options.title,
+  (newVal, oldVal, onInvalidate) => {
+    console.log(newVal, oldVal);
+    onInvalidate(() => {
+      console.log("Some Clearning Logic...");
+    });
+  }
+);
+
+// level 2 Object attribute
+// watch(
+//   () => options.user.name,
+//   (newVal, oldVal) => {
+//     console.log(newVal, oldVal);
+//   }
+// );
+
+// The comparision is by reference,
+// won't work, same for `Array`
+// watch(
+//   () => options,
+//   (newVal, oldVal) => {
+//     console.log("Object watch");
+//     console.log(newVal, oldVal);
+//   }
+// );
+
+// Set deep to true, we can detect Object
+// attribute change, but the two objects are
+// the same object.
+// watch(
+//   () => options,
+//   (newVal, oldVal) => {
+//     console.log("Object watch");
+//     console.log(newVal, oldVal);
+//     console.log("Same Object: ", newVal === oldVal); // true
+//   },
+//   { deep: true }
+// );
+
+// Pure Cloning
+watch(
+  () => JSON.parse(JSON.stringify(options)),
+  (newVal, oldVal) => {
+    console.log(newVal, oldVal);
+    console.log("Same Object", newVal === oldVal);
+  }
+);
+
+// Watch multiple Values at the same time
+watch([() => options.title, () => options.user.name], (newVals, oldVals) => {
+  console.log(newVals, oldVals);
+});
+
+// watch Effect
+// watchEffect((onInvalidate) => {
+//   console.log("---watchEffect Starts---");
+//   console.log(options.title);
+//   console.log(options.user.name);
+//   onInvalidate(() => {
+//     console.log("Some Clear Logic...");
+//   })
+//   console.log("---watchEffect Ends---");
+// });
 </script>
 
 <style scoped>
