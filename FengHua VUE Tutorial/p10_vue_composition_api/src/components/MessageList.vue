@@ -1,6 +1,7 @@
 <template>
   <div v-if="loading">LOADING...</div>
   <div v-else>
+    <button @click="sortByKey('content', 'desc')">Sort</button>
     <h2>{{ options.title }}</h2>
     <p>
       user: {{ options.user.name }}, active:
@@ -31,33 +32,36 @@
 
 <script>
 import { ref, reactive, computed, watch, watchEffect, onMounted } from "vue";
+import useListData from "../composables/useListData";
 import MessageListItem from "./MessageListItem.vue";
 export default {
   components: { MessageListItem },
-  setup(props) {
-    const messages = ref([]);
+  setup(props, { attrs }) {
+    const {
+      data: messages,
+      removeItem: removeMessage,
+      sortByKey,
+    } = useListData([
+      { id: 1, content: "这是一条消息提醒1" },
+      { id: 2, content: "这是一条消息提醒2" },
+      { id: 3, content: "这是一条消息提醒3" },
+      { id: 4, content: "这是一条消息提醒4" },
+    ]);
     const loading = ref(false);
 
-    onMounted(() => {
-      console.log("onMounted!");
-      loading.value = true;
-      setTimeout(() => {
-        messages.value = [
-          { id: 1, content: "这是一条消息提醒1" },
-          { id: 2, content: "这是一条消息提醒2" },
-          { id: 3, content: "这是一条消息提醒3" },
-          { id: 4, content: "这是一条消息提醒4" },
-        ];
-        loading.value = false;
-        setTimeout(() => {
-          messages.value[1].content = "This is message 2 - modified";
-        }, 1500);
-      }, 5000);
-    });
+    console.log(attrs);
+    console.log(attrs.class);
+    console.log(attrs["data-title"]);
 
-    function removeMessage(id) {
-      messages.value = messages.value.filter((msg) => msg.id !== id);
-    }
+    // watchEffect(() => {
+    //   console.log(attrs.test, " in MessageList.vue");
+    // });
+
+    // if we destruct attrs, it is not reactive any more.
+    const { test } = attrs;
+    watchEffect(() => {
+      console.log(test, " in MessageList.vue");
+    });
 
     watch(
       messages,
@@ -176,6 +180,7 @@ export default {
       options,
       searchTerm,
       searchedMessages,
+      sortByKey,
     };
   },
 };

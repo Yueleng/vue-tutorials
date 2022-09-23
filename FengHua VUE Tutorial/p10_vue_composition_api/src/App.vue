@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="container">
-      <MessageList />
+      <MessageList class="messageList" :test="test" data-title="Message List" />
       <button @onlick="messages.pop()">Delete One Message</button>
     </div>
     <AutoFocus />
@@ -17,21 +17,33 @@
         <p>This is Content</p>
       </template>
     </BaseLayout>
+    <UserTable />
   </main>
 </template>
 
 <script>
+import { ref } from "vue";
 import MessageList from "./components/MessageList.vue";
 import AutoFocus from "./components/AutoFocus.vue";
 import BaseLayout from "./components/BaseLayout.vue";
+import UserTable from "./components/UserTable.vue";
 
 export default {
   components: {
     MessageList,
     AutoFocus,
     BaseLayout,
+    UserTable,
   },
-  setup() {},
+  setup() {
+    const test = ref("test");
+
+    setTimeout(() => {
+      test.value = "changed";
+    }, 2000);
+
+    return { test };
+  },
 };
 </script>
 
