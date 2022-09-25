@@ -2,7 +2,7 @@
   <li>{{ msg }} <button @click="$emit('remove', id)">Delete Msg</button></li>
 </template>
 <script setup>
-import { ref, watch, watchEffect, toRefs, defineProps } from "vue";
+import { ref, watch, watchEffect, toRefs } from "vue";
 
 const props = defineProps(["msg", "id"]);
 const emits = defineEmits(["remove"]);
