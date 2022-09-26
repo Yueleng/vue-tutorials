@@ -18,9 +18,15 @@ const animationClasses = ref(["box"]);
 
 watchEffect(() => {
   if (show.value) {
-    animationClasses.value = ["box", "box-enter"];
+    animationClasses.value = ["box", "box-enter-active", "box-enter-from"];
+    setTimeout(() => {
+      animationClasses.value.push("box-enter-to");
+    });
   } else {
-    animationClasses.value = ["box", "box-leave"];
+    animationClasses.value = ["box", "box-leave-active", "box-leave-from"];
+    setTimeout(() => {
+      animationClasses.value.push("box-leave-to");
+    });
   }
 });
 </script>
@@ -95,20 +101,27 @@ button {
   color: white;
 }
 
-.box-enter {
-  animation: fade 0.5s;
+.box-enter-from {
+  opacity: 0;
 }
 
-.box-leave {
-  animation: fade 0.5s reverse;
+.box-enter-to {
+  opacity: 1;
 }
 
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.box-enter-active {
+  transition: all 1s ease-in-out;
+}
+
+.box-leave-from {
+  opacity: 1;
+}
+
+.box-leave-to {
+  opacity: 0;
+}
+
+.box-leave-active {
+  transition: all 0.3s ease-in-out;
 }
 </style>
