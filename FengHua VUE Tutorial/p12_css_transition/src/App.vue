@@ -4,7 +4,9 @@
       <button @click="show = !show">
         {{ show ? "Hide" : "Show" }}
       </button>
-      <div v-if="show" :class="animationClasses"></div>
+      <Transition name="fadeAndScale">
+        <div v-if="show" :class="animationClasses"></div>
+      </Transition>
     </div>
   </main>
 </template>
@@ -101,27 +103,47 @@ button {
   color: white;
 }
 
-.box-enter-from {
+.fadeAndScale-enter-from {
   opacity: 0;
 }
 
-.box-enter-to {
+.fadeAndScale-enter-to {
   opacity: 1;
 }
 
-.box-enter-active {
-  transition: all 1s ease-in-out;
+.fadeAndScale-enter-active {
+  animation: scale 0.7s ease-in-out;
+  transition: all 0.7s ease-in-out;
 }
 
-.box-leave-from {
+.fadeAndScale-leave-from {
   opacity: 1;
 }
 
-.box-leave-to {
+.fadeAndScale-leave-to {
   opacity: 0;
 }
 
-.box-leave-active {
-  transition: all 0.3s ease-in-out;
+.fadeAndScale-leave-active {
+  animation: scale 0.3s ease-in reverse;
+  transition: all 0.3s ease-in;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+
+  33% {
+    transform: scale(1.1);
+  }
+
+  66% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
