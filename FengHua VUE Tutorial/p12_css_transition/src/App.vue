@@ -1,8 +1,9 @@
 <template>
   <main>
     <div class="container">
-      <Transition name="fade">
-        <div class="box" :class="box" :key="box"></div>
+      <Transition name="fade" mode="out-in">
+        <!-- no need to attch key here -->
+        <Component :is="shape"></Component>
       </Transition>
     </div>
   </main>
@@ -10,15 +11,17 @@
 
 <script setup>
 import { ref, computed, Transition } from "vue";
+import Circle from "./components/Circle.vue";
+import RectangleBox from "./components/RectangleBox.vue";
 
-const boxes = ["box1", "box2", "box3"];
+const shapes = [RectangleBox, Circle];
 
 const current = ref(0);
 
-const box = computed(() => boxes[current.value]);
+const shape = computed(() => shapes[current.value]);
 
 setInterval(() => {
-  current.value = (current.value + 1) % boxes.length;
+  current.value = (current.value + 1) % shapes.length;
 }, 1500);
 </script>
 
@@ -77,36 +80,6 @@ button {
   margin-bottom: 24px;
   border-radius: 4px;
   color: white;
-}
-
-.box {
-  width: 100px;
-  height: 100px;
-  padding: 0.5em 1.4em;
-  border-radius: 4px;
-  color: white;
-
-  grid-area: 1 / 1 / 2 / 2;
-}
-
-.box1 {
-  background: linear-gradient(
-    45deg,
-    hsl(240deg, 60%, 50%),
-    hsl(300deg, 90%, 50%)
-  );
-}
-
-.box2 {
-  background: linear-gradient(
-    45deg,
-    hsl(140deg, 60%, 50%),
-    hsl(200deg, 90%, 50%)
-  );
-}
-
-.box3 {
-  background: linear-gradient(45deg, hsl(0deg, 60%, 50%), hsl(50deg, 90%, 50%));
 }
 
 .fade-enter-from {
