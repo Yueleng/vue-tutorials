@@ -1,10 +1,8 @@
 <template>
   <main>
     <div class="container">
-      <Transition name="fade" mode="out-in">
-        <div v-if="box === 'box1'" class="box box1"></div>
-        <div v-else-if="box === 'box2'" class="box box2"></div>
-        <div v-else class="box box3"></div>
+      <Transition name="fade">
+        <div class="box" :class="box" :key="box"></div>
       </Transition>
     </div>
   </main>
@@ -88,7 +86,7 @@ button {
   border-radius: 4px;
   color: white;
 
-  /* grid-area: 1 / 1 / 2 / 2; */
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 .box1 {
