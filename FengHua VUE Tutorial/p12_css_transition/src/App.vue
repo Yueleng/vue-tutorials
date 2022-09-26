@@ -1,28 +1,29 @@
 <template>
   <main>
     <div class="container">
-      <Transition name="fade" mode="out-in">
-        <!-- no need to attch key here -->
-        <Component :is="shape"></Component>
-      </Transition>
+      <TransitionGroup name="fade" tag="div" mode="out-in">
+        <RectangleBox
+          v-for="(num, index) in nums"
+          :key="num"
+          @click="nums.splice(index, 1)"
+        >
+          {{ num }}
+        </RectangleBox>
+      </TransitionGroup>
     </div>
+    <button @click="nums.splice(next % nums.length, 0, next++)">
+      Add Element
+    </button>
   </main>
 </template>
 
 <script setup>
-import { ref, computed, Transition } from "vue";
-import Circle from "./components/Circle.vue";
-import RectangleBox from "./components/RectangleBox.vue";
+import { ref } from "vue";
+import RectangleBox from "./components/RectangleBox2.vue";
 
-const shapes = [RectangleBox, Circle];
+const next = ref(7);
 
-const current = ref(0);
-
-const shape = computed(() => shapes[current.value]);
-
-setInterval(() => {
-  current.value = (current.value + 1) % shapes.length;
-}, 1500);
+const nums = ref([0, 1, 2, 3, 4, 5, 6]);
 </script>
 
 <style>
@@ -54,32 +55,16 @@ body {
 
 .container {
   display: grid;
-  justify-items: center;
-  grid-template-rows: 70px 1fr;
-  height: 300px;
+  gap: 48px;
 }
 
-input {
-  padding: 8px 14px;
-  border: 1px solid hsl(280deg, 50%, 50%);
-  border-radius: 4px;
-  outline: none;
-  background: hsl(280deg, 50%, 30%, 0.2);
-  color: white;
-  margin-top: 64px;
+.container > div {
+  display: flex;
+  gap: 24px;
 }
 
-button {
-  border: none;
-  background: linear-gradient(
-    90deg,
-    hsl(240deg, 50%, 50%),
-    hsl(280deg, 50%, 50%)
-  );
-  padding: 12px 18px;
-  margin-bottom: 24px;
-  border-radius: 4px;
-  color: white;
+.container button {
+  justify-self: start;
 }
 
 .fade-enter-from {
@@ -92,10 +77,11 @@ button {
 
 .fade-leave-from {
   opacity: 1;
+  transform: rotate(0);
 }
-
 .fade-leave-to {
   opacity: 0;
+  transform: rotate(360deg);
 }
 
 .fade-enter-active {
@@ -104,5 +90,23 @@ button {
 
 .fade-leave-active {
   transition: all 0.3s ease-in;
+}
+
+.fade-move {
+  transition: transform 0.3s ease-out;
+}
+
+button {
+  border: none;
+  background: linear-gradient(
+    90deg,
+    hsl(200deg, 50%, 50%),
+    hsl(240deg, 50%, 50%)
+  );
+  padding: 12px 18px;
+  margin-top: 12px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
 }
 </style>
