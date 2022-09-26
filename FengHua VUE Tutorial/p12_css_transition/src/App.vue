@@ -1,14 +1,28 @@
 <template>
   <main>
     <div class="container">
-      <div class="box"></div>
+      <button @click="show = !show">
+        {{ show ? "Hide" : "Show" }}
+      </button>
+      <div v-if="show" :class="animationClasses"></div>
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref } from "vue";
-const duration = ref(10);
+import { ref, watchEffect } from "vue";
+
+const show = ref(false);
+
+const animationClasses = ref(["box"]);
+
+watchEffect(() => {
+  if (show.value) {
+    animationClasses.value = ["box", "box-enter"];
+  } else {
+    animationClasses.value = ["box", "box-leave"];
+  }
+});
 </script>
 
 <style>
@@ -41,6 +55,8 @@ body {
 .container {
   display: grid;
   justify-items: center;
+  grid-template-rows: 70px 1fr;
+  height: 300px;
 }
 
 input {
@@ -51,6 +67,19 @@ input {
   background: hsl(280deg, 50%, 30%, 0.2);
   color: white;
   margin-top: 64px;
+}
+
+button {
+  border: none;
+  background: linear-gradient(
+    90deg,
+    hsl(240deg, 50%, 50%),
+    hsl(280deg, 50%, 50%)
+  );
+  padding: 12px 18px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  color: white;
 }
 
 .box {
@@ -64,11 +93,22 @@ input {
   padding: 0.5em 1.4em;
   border-radius: 4px;
   color: white;
-
-  transition: all 0.5s ease-in-out;
 }
 
-.box:hover {
-  transform: scale(1.25) skewY(-20deg) rotateY(20deg);
+.box-enter {
+  animation: fade 0.5s;
+}
+
+.box-leave {
+  animation: fade 0.5s reverse;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
