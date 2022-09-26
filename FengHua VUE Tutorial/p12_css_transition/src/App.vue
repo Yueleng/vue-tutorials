@@ -1,36 +1,27 @@
 <template>
   <main>
     <div class="container">
-      <button @click="show = !show">
-        {{ show ? "Hide" : "Show" }}
-      </button>
-      <Transition name="fadeAndScale">
-        <div v-if="show" :class="animationClasses"></div>
+      <Transition name="fade" mode="out-in">
+        <div v-if="box === 'box1'" class="box box1"></div>
+        <div v-else-if="box === 'box2'" class="box box2"></div>
+        <div v-else class="box box3"></div>
       </Transition>
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref, computed, Transition } from "vue";
 
-const show = ref(false);
+const boxes = ["box1", "box2", "box3"];
 
-const animationClasses = ref(["box"]);
+const current = ref(0);
 
-watchEffect(() => {
-  if (show.value) {
-    animationClasses.value = ["box", "box-enter-active", "box-enter-from"];
-    setTimeout(() => {
-      animationClasses.value.push("box-enter-to");
-    });
-  } else {
-    animationClasses.value = ["box", "box-leave-active", "box-leave-from"];
-    setTimeout(() => {
-      animationClasses.value.push("box-leave-to");
-    });
-  }
-});
+const box = computed(() => boxes[current.value]);
+
+setInterval(() => {
+  current.value = (current.value + 1) % boxes.length;
+}, 1500);
 </script>
 
 <style>
@@ -93,57 +84,54 @@ button {
 .box {
   width: 100px;
   height: 100px;
+  padding: 0.5em 1.4em;
+  border-radius: 4px;
+  color: white;
+
+  /* grid-area: 1 / 1 / 2 / 2; */
+}
+
+.box1 {
   background: linear-gradient(
     45deg,
     hsl(240deg, 60%, 50%),
     hsl(300deg, 90%, 50%)
   );
-  padding: 0.5em 1.4em;
-  border-radius: 4px;
-  color: white;
 }
 
-.fadeAndScale-enter-from {
+.box2 {
+  background: linear-gradient(
+    45deg,
+    hsl(140deg, 60%, 50%),
+    hsl(200deg, 90%, 50%)
+  );
+}
+
+.box3 {
+  background: linear-gradient(45deg, hsl(0deg, 60%, 50%), hsl(50deg, 90%, 50%));
+}
+
+.fade-enter-from {
   opacity: 0;
 }
 
-.fadeAndScale-enter-to {
+.fade-enter-to {
   opacity: 1;
 }
 
-.fadeAndScale-enter-active {
-  animation: scale 0.7s ease-in-out;
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active {
   transition: all 0.7s ease-in-out;
 }
 
-.fadeAndScale-leave-from {
-  opacity: 1;
-}
-
-.fadeAndScale-leave-to {
-  opacity: 0;
-}
-
-.fadeAndScale-leave-active {
-  animation: scale 0.3s ease-in reverse;
+.fade-leave-active {
   transition: all 0.3s ease-in;
-}
-
-@keyframes scale {
-  0% {
-    transform: scale(0);
-  }
-
-  33% {
-    transform: scale(1.1);
-  }
-
-  66% {
-    transform: scale(0.9);
-  }
-
-  100% {
-    transform: scale(1);
-  }
 }
 </style>
