@@ -2,7 +2,6 @@
   <main>
     <div class="container">
       <div class="box"></div>
-      <input type="text" v-model="duration" />
     </div>
   </main>
 </template>
@@ -66,16 +65,10 @@ input {
   border-radius: 4px;
   color: white;
 
-  animation: rotate v-bind(duration + "s") linear infinite;
+  transition: all 0.5s ease-in-out;
 }
 
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
+.box:hover {
+  transform: scale(1.25) skewY(-20deg) rotateY(20deg);
 }
 </style>
