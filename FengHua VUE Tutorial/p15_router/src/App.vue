@@ -1,9 +1,49 @@
-<template></template>
+<template>
+  <nav>
+    <a
+      v-for="(route, path) in routes"
+      :href="path"
+      @click.prevent="changeRoute(path)"
+    >
+      {{ route.label }}
+    </a>
+    <Component :is="currentPage" />
+  </nav>
+</template>
 
 <script setup>
 import PageOne from "./components/PageOne.vue";
 import PageTwo from "./components/PageTwo.vue";
 import PageThree from "./components/PageThree.vue";
+
+import { ref, computed } from "vue";
+
+const routes = {
+  "/1": {
+    component: PageOne,
+    label: "Page 1",
+  },
+  "/2": {
+    component: PageTwo,
+    label: "Page 2",
+  },
+  "/3": {
+    component: PageThree,
+    label: "Page 3",
+  },
+};
+
+const currentPath = ref(location.pathname);
+console.log(currentPath.value);
+
+const currentPage = computed(
+  () => routes[currentPath.value]?.component || PageOne
+);
+
+function changeRoute(path) {
+  history.pushState(null, null, path);
+  currentPath.value = location.pathname;
+}
 </script>
 
 <style>
