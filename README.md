@@ -5,6 +5,8 @@
   - `yarn create vite`
   - `yarn install`
   - `vite run dev` or `vite dev`
+  - `yarn build`
+  - `yarn serve`
 
 ## Difference between `computed`, `methods`, `watch`
   - `computed` will cache the result, while `methods` won't cache the result.
