@@ -1,31 +1,62 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <nav>
+    <router-link to="/">首页</router-link>
+    <router-link to="/about">关于</router-link>
+  </nav>
+  <router-view></router-view>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<script>
+export default {};
+</script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, "PingFang SC", "Microsoft Yahei", sans-serif;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+body {
+  background-color: #0f141c;
+  opacity: 1;
+  background-image: radial-gradient(
+    #212943 0.6000000000000001px,
+    #0f141c 0.6000000000000001px
+  );
+  background-size: 12px 12px;
+  color: white;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  display: grid;
+  place-items: center;
 }
+
+nav {
+  padding: 24px 0;
+}
+
+nav a {
+  font-size: 18px;
+  color: white;
+  margin-right: 24px;
+  /* cursor: pointer; */
+}
+
+/* button {
+  border: none;
+  background: linear-gradient(
+    90deg,
+    hsl(240deg, 50%, 50%),
+    hsl(280deg, 50%, 50%)
+  );
+  padding: 0.5em 1.4em;
+  border-radius: 4px;
+  color: white;
+} */
 </style>
