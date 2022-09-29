@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <nav>
     <a
       v-for="(route, path) in routes"
@@ -9,41 +9,50 @@
     </a>
     <Component :is="currentPage" />
   </nav>
+</template> -->
+
+<template>
+  <nav>
+    <router-link to="/">页面1</router-link>
+    <router-link to="/2">页面2</router-link>
+    <router-link to="/3">页面3</router-link>
+  </nav>
+  <router-view></router-view>
 </template>
 
 <script setup>
-import PageOne from "./components/PageOne.vue";
-import PageTwo from "./components/PageTwo.vue";
-import PageThree from "./components/PageThree.vue";
+// import PageOne from "./components/PageOne.vue";
+// import PageTwo from "./components/PageTwo.vue";
+// import PageThree from "./components/PageThree.vue";
 
-import { ref, computed } from "vue";
+// import { ref, computed } from "vue";
 
-const routes = {
-  "/1": {
-    component: PageOne,
-    label: "Page 1",
-  },
-  "/2": {
-    component: PageTwo,
-    label: "Page 2",
-  },
-  "/3": {
-    component: PageThree,
-    label: "Page 3",
-  },
-};
+// const routes = {
+//   "/1": {
+//     component: PageOne,
+//     label: "Page 1",
+//   },
+//   "/2": {
+//     component: PageTwo,
+//     label: "Page 2",
+//   },
+//   "/3": {
+//     component: PageThree,
+//     label: "Page 3",
+//   },
+// };
 
-const currentPath = ref(location.pathname);
-console.log(currentPath.value);
+// const currentPath = ref(location.pathname);
+// console.log(currentPath.value);
 
-const currentPage = computed(
-  () => routes[currentPath.value]?.component || PageOne
-);
+// const currentPage = computed(
+//   () => routes[currentPath.value]?.component || PageOne
+// );
 
-function changeRoute(path) {
-  history.pushState(null, null, path);
-  currentPath.value = location.pathname;
-}
+// function changeRoute(path) {
+//   history.pushState(null, null, path);
+//   currentPath.value = location.pathname;
+// }
 </script>
 
 <style>
