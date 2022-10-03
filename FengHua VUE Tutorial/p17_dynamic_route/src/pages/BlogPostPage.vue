@@ -6,6 +6,8 @@
     <p>{{ blogPost.body }}</p>
     <footer>
       <router-link to="/">回到主页</router-link>
+      <router-link :to="`/${blogPost.id - 1}`">Previous</router-link>
+      <router-link :to="`/${blogPost.id + 1}`">Next</router-link>
     </footer>
   </article>
 </template>
@@ -16,9 +18,36 @@ export default {
   data() {
     return { blogPost: {} };
   },
+
+  // remember watch won't trigger the first render,
+  // unless it's immediate was set to true
+  // watch: {
+  //   "$route.params": function (params, oldParams) {
+  //     this.blogPost = getBlogPostById(params.postId);
+  //   },
+  // },
+
   created() {
-    this.blogPost = getBlogPostById(this.$route.params.postId);
+    this.$watch(
+      () => this.$route.params,
+      function (params, oldParams) {
+        this.blogPost = getBlogPostById(this.$route.params.postId);
+      },
+      {
+        immediate: true,
+      }
+    );
   },
+
+  // alternative
+  // watch: {
+  //   "$route.params": {
+  //     handler(params, oldParams) {
+  //       this.blogPost = getBlogPostById(params.postId);
+  //     },
+  //     immediate: true,
+  //   },
+  // },
 };
 </script>
 <style scoped>
