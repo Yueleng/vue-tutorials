@@ -1,4 +1,14 @@
 <template>
+  <nav>
+    <router-link :to="{ name: 'post', params: { id: 50 } }">
+      See the details of the blog
+    </router-link>
+    <router-link
+      :to="{ name: 'userDetails', params: { id: 100, fullname: 'Nancy Wu' } }"
+    >
+      See the details of the user
+    </router-link>
+  </nav>
   <router-view></router-view>
 </template>
 <script></script>
