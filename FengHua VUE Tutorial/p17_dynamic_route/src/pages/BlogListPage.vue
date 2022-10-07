@@ -8,6 +8,24 @@
           }}</router-link>
         </h2>
         <p>{{ blogPost.body.substring(0, 100) + "..." }}</p>
+        <footer>
+          <!-- <button @click="$router.push(`/${blogPost.id}`)">
+            Read the full article
+          </button> -->
+          <!-- relace vs push vs go: (number) => {} vs back vs forward-->
+          <button
+            @click="
+              $router.push({
+                name: 'blogPost',
+                params: {
+                  postId: blogPost.id,
+                },
+              })
+            "
+          >
+            Read the full article
+          </button>
+        </footer>
       </article>
     </div>
   </main>
