@@ -9,13 +9,36 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
+    name: "blog-list",
     component: BlogListPage,
-    alias: ["/index", "/blogs"],
+    alias: ["/posts", "/blogs"],
   },
   {
     path: "/:postId",
+    name: "blogPost",
     component: BlogPostPage,
     alias: "/posts/:postId",
+  },
+  {
+    path: "/red-to-posts",
+    redirect: "/posts",
+  },
+  {
+    path: "/redirect-to-bloglist",
+    redirect: {
+      name: "blog-list",
+    },
+  },
+  {
+    path: "/blogs/:blogId",
+    redirect: (to) => ({
+      name: "blogPost",
+      params: {
+        // this key name: `postId` must match
+        // with the {name: "blogPost"}'s path value placeholder `/:postId`
+        postId: to.params.blogId,
+      },
+    }),
   },
   {
     path: "/pages",
