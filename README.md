@@ -17,6 +17,8 @@ VUE Tutorials
 - `vite run dev` or `vite dev`
 - `yarn build`
 - `yarn serve`
+- `npm install -g typescript`
+- `yarn add typescript --dev`
 
 ## Difference between `computed`, `methods`, `watch`
 
