@@ -38,3 +38,7 @@ VUE Tutorials
   - Keep each file's independence,
   - Reusability.
   - Team Collaboration
+
+## Typescript
+
+- tsconfig.json folder is considered as root folder.

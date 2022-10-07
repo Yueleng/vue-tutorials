@@ -1,0 +1,13 @@
+{
+  "name": "learn_ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "awang",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
