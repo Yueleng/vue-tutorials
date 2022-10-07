@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link :to="{ name: 'post', params: { id: 50 } }">
+    <router-link :to="{ name: 'page', params: { id: 50 } }">
       See the details of the blog
     </router-link>
     <router-link

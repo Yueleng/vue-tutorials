@@ -10,13 +10,15 @@ const routes = [
   {
     path: "/",
     component: BlogListPage,
+    alias: ["/index", "/blogs"],
   },
   {
     path: "/:postId",
     component: BlogPostPage,
+    alias: "/posts/:postId",
   },
   {
-    path: "/posts",
+    path: "/pages",
     component: PrintRoute,
   },
   {
@@ -24,7 +26,7 @@ const routes = [
     name: "userDetails",
     component: UserDetailsPage,
   },
-  { path: "/posts/:id", name: "post", component: BlogPostPage2 },
+  { path: "/pages/:id", name: "page", component: BlogPostPage2 },
 ];
 
 const router = createRouter({
