@@ -5,7 +5,8 @@
   "author": "awang",
   "license": "MIT",
   "scripts": {
-    "build": "tsc index.ts"
+    "build": "tsc --lib \"es2015\",\"dom\" index.ts",
+    "execute": "node index.js"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
