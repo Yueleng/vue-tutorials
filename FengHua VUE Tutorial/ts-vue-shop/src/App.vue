@@ -103,6 +103,7 @@ function handleSortByName() {
 }
 
 function handleFilterByStock(inStock: boolean | null) {
+  console.log("inStock changed to: ", inStock);
   sortAndFilter.inStock = inStock;
 }
 
