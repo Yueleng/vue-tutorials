@@ -3,6 +3,8 @@
     <aside class="leftSideBar">
       <h2>博客管理</h2>
       <nav>
+        <!-- 父级route也会高亮 -->
+        <router-link to="/blogs">管理首页</router-link>
         <router-link to="/blogs/new">添加博客</router-link>
         <router-link to="/blogs/details">博客详情</router-link>
       </nav>
@@ -39,6 +41,7 @@
   align-items: start;
 }
 
+/* 通过 class 的 css行为 来高亮active route */
 .router-link-active {
   position: relative;
   color: hsl(280deg, 100%, 90%);
