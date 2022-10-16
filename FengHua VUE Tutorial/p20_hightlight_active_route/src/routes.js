@@ -7,6 +7,8 @@ import HomePage from "./pages/HomePage.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
+const loggedIn2 = true;
+
 const routes = [
   {
     path: "/",
@@ -17,9 +19,18 @@ const routes = [
     name: "login",
     component: LoginPage,
   },
+  // 路由导航守卫
   {
     path: "/blogs",
     component: BlogManagement,
+    // beforeEnter(to, from) {
+    //   if (!loggedIn2) {
+    //     console.log("路由导航守卫阻止进入 /blogs");
+    //     return "/login";
+    //   }
+    // },
+    // beforeEnter 还支持多个回调函数, 放到数组里面依次执行
+    beforeEnter: [authBlogsPage],
     children: [
       {
         path: "new",
@@ -29,12 +40,24 @@ const routes = [
         },
       },
       {
-        path: "details",
+        path: "details/:postId",
         component: BlogDetails,
+        beforeEnter(to, from) {
+          console.log(
+            "this should only be called when firsted enterd /:postId"
+          );
+        },
       },
     ],
   },
 ];
+
+function authBlogsPage(to, from) {
+  if (!loggedIn2) {
+    console.log("路由导航守卫阻止进入 /blogs");
+    return "/login";
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(),
@@ -47,8 +70,8 @@ const loggedIn = true;
 
 // 配置全局导航守卫
 router.beforeEach((to, from) => {
-  console.log("to", to);
-  console.log("from", from);
+  console.log("全局守卫 to", to);
+  console.log("全局守卫 from", from);
   if (to.path.startsWith("/blogs")) {
     if (!loggedIn) {
       // return "/login";
@@ -61,7 +84,7 @@ router.beforeEach((to, from) => {
 
 router.beforeResolve((to) => {
   if (to.path.startsWith("/blogs")) {
-    console.log("用户已登陆");
+    console.log("全局守卫 beforeResolve triggered: 用户已登陆");
   }
 });
 

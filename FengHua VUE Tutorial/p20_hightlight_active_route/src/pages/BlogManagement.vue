@@ -5,7 +5,8 @@
       <nav>
         <router-link to="/blogs">管理首页</router-link>
         <router-link to="/blogs/new">添加博客</router-link>
-        <router-link to="/blogs/details">博客详情</router-link>
+        <router-link to="/blogs/details/1">博客详情1</router-link>
+        <router-link to="/blogs/details/2">博客详情2</router-link>
       </nav>
     </aside>
     <main class="content">
