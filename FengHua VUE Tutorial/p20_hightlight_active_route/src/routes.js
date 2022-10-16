@@ -43,4 +43,30 @@ const router = createRouter({
   // linkExactActiveClass, // 精确的高亮, 设置自定义的class
 });
 
+const loggedIn = true;
+
+// 配置全局导航守卫
+router.beforeEach((to, from) => {
+  console.log("to", to);
+  console.log("from", from);
+  if (to.path.startsWith("/blogs")) {
+    if (!loggedIn) {
+      // return "/login";
+      return {
+        name: "login",
+      };
+    }
+  }
+});
+
+router.beforeResolve((to) => {
+  if (to.path.startsWith("/blogs")) {
+    console.log("用户已登陆");
+  }
+});
+
+router.afterEach((to) => {
+  document.title = to.path;
+});
+
 export default router;
