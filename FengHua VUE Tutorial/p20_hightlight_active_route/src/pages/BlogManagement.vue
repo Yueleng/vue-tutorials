@@ -3,7 +3,6 @@
     <aside class="leftSideBar">
       <h2>博客管理</h2>
       <nav>
-        <!-- 父级route也会高亮 -->
         <router-link to="/blogs">管理首页</router-link>
         <router-link to="/blogs/new">添加博客</router-link>
         <router-link to="/blogs/details">博客详情</router-link>
@@ -42,12 +41,13 @@
 }
 
 /* 通过 class 的 css行为 来高亮active route */
-.router-link-active {
+/* 通过添加 -exact 来确定exact match 的行为 */
+.router-link-exact-active {
   position: relative;
   color: hsl(280deg, 100%, 90%);
 }
 
-.router-link-active::before {
+.router-link-exact-active::before {
   content: "";
   position: absolute;
   width: 3px;

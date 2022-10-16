@@ -39,6 +39,8 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  // linkActiveClass, // 不精确的高亮, 设置自定义的class
+  // linkExactActiveClass, // 精确的高亮, 设置自定义的class
 });
 
 export default router;
