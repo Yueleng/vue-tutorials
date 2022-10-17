@@ -38,6 +38,7 @@ const routes = [
           default: AddBlog,
           rightSideBar: RightSidebar,
         },
+        meta: { private: true },
       },
       {
         path: "details/:postId",
@@ -67,6 +68,7 @@ const router = createRouter({
 });
 
 const loggedIn = true;
+const loggedInMeta = false;
 
 // 配置全局导航守卫
 router.beforeEach((to, from) => {
@@ -79,6 +81,13 @@ router.beforeEach((to, from) => {
         name: "login",
       };
     }
+  }
+  // if (to.matched.some((record) => record.meta.private) && !loggedInMeta) {
+  //   return "/login";
+  // }
+
+  if (to.meta.private && !loggedInMeta) {
+    return "/login";
   }
 });
 

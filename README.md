@@ -125,6 +125,12 @@ VUE Tutorials
     - 更新 `DOM` 节点
     - 执行组件中的 `beforeRouterEnter`中的 `next()` 回调函数中的回调函数
 
+- Meta 属性
+
+  - `to.meta` 会得到 `to.matched` 所有路由的 `meta` 属性, (浅合并以及相同 `key` 子路由覆盖父级路由)
+  - Best Practice: 在父级设置 `meta : {private: true}` 作为 `logged in` 验证要求即可
+  -
+
 ## Typescript
 
 - tsconfig.json folder is considered as root folder.
