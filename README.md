@@ -129,7 +129,58 @@ VUE Tutorials
 
   - `to.meta` 会得到 `to.matched` 所有路由的 `meta` 属性, (浅合并以及相同 `key` 子路由覆盖父级路由)
   - Best Practice: 在父级设置 `meta : {private: true}` 作为 `logged in` 验证要求即可
-  -
+
+- 页面滚动行为控制
+
+  - 设置 `top`, `left` 和 `behavior` 属性
+
+    ```js
+    scrollBehavior(to, from, savedPosition) {
+      return {
+        top: 200,
+        behavior: "smooth",
+        left: 0
+      }
+    },
+    ```
+
+  - Promise
+
+    ```js
+    scrollBehavior(to, from, savedPosition) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            top: 200,
+            behavior: "smooth",
+          });
+        }, 2000);
+      });
+    },
+    ```
+
+  - 控制下滑到某个 `DOM` 的 相对位置
+
+  ```js
+  scrollBehavior(to, from, savedPosition) {
+    return {
+      top: 200,
+      el: "#app"
+    }
+  },
+  ```
+
+  - 依靠 `savedPosition`
+
+  ```js
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
+  ```
 
 ## Typescript
 

@@ -65,6 +65,19 @@ const router = createRouter({
   routes,
   // linkActiveClass, // 不精确的高亮, 设置自定义的class
   // linkExactActiveClass, // 精确的高亮, 设置自定义的class
+  scrollBehavior(to, from, savedPosition) {
+    console.log("savedPosition outer", savedPosition);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log("savedPosition inner", savedPosition);
+        if (savedPosition) {
+          return resolve(savedPosition);
+        } else {
+          return resolve({ top: 0 });
+        }
+      }, 2000);
+    });
+  },
 });
 
 const loggedIn = true;
