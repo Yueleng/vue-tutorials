@@ -1,7 +1,10 @@
-import BlogListPage from "./pages/BlogListPage.vue";
-import BlogPostPage from "./pages/BlogPostPage.vue";
+// import BlogListPage from "./pages/BlogListPage.vue";
+// import BlogPostPage from "./pages/BlogPostPage.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
+
+const BlogListPage = () => import("./pages/BlogListPage.vue");
+const BlogPostPage = () => import("./pages/BlogPostPage.vue");
 
 const routes = [
   {
