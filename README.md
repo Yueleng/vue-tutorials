@@ -182,6 +182,14 @@ VUE Tutorials
   },
   ```
 
+## router-link 内置 API
+
+- `isActive`: 是否为当前活跃导航, 如果是，值为 true，如果不是，值为 false
+- `isExactActive`: 是否为精确匹配的当前活跃导航.
+- `href`: 转化后的超链接字符串。
+- `route`: 路由对象.
+- `navigate`: 是一个函数，调用他就能触发导航，例如在自定义元素的 click 事件上
+
 ## Typescript
 
 - tsconfig.json folder is considered as root folder.
