@@ -14,6 +14,13 @@ const routes = [
   {
     path: "/:postId",
     component: BlogPostPage,
+    // props: true,
+    // props: {
+    //   postId: 5,
+    // },
+    props: (route) => ({
+      postId: Number(route.params.postId),
+    }),
   },
 ];
 

@@ -13,11 +13,13 @@
 import { getBlogPostById } from "../data/blogPosts";
 
 export default {
+  props: ["postId"],
   data() {
     return { blogPost: {} };
   },
   created() {
-    this.blogPost = getBlogPostById(this.$route.params.postId);
+    // this.blogPost = getBlogPostById(this.$route.params.postId);
+    this.blogPost = getBlogPostById(this.postId);
   },
 };
 </script>
